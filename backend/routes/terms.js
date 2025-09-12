@@ -1,5 +1,5 @@
 import express from 'express';
-import TermsContent from '../models/TermsContent';
+import TermsContent from '../models/TermsContent.js';
 
 const router = express.Router()
 
@@ -9,9 +9,11 @@ router.get('/', async (req, res) => {
             where: { is_active: true},
             order: [['order', 'ASC']]
         })
-        res.json(terms)
+        res.json({ success: true, data: terms });
     }
     catch(err){
         console.error('error fetching terms:', err);
     }
 })
+
+export default router;

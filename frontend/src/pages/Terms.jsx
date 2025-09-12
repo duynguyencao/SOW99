@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useLanguage } from '../contexts/LanguageContext';
-import { termsAPI } from '../services/api';
-import './TermsPage-simple.css';
+import { useLanguage } from '../context/LanguageContext';
+import { termsAPI } from '../services/api.js';
+import './terms.css';
 
 const TermsPage = () => {
   const { language } = useLanguage();
