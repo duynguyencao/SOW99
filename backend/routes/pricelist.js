@@ -4,16 +4,17 @@ import PricelistItem from '../models/PricelistItem.js';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-    try {
-        const items = await PricelistItem.findAll({
-            where: { is_active: true },
-            order: [['sort_order', 'ASC']]
-        })
-        res.json({ success: true, data: items });
-    }
-    catch (err) {
-        console.error('error fetching pricelist items:', err);
-    }
+  try {
+    const items = await PricelistItem.findAll({
+      where: { is_active: true },
+      order: [['sort_order', 'ASC']]
+    })
+    res.json({ success: true, data: items });
+  }
+  catch (err) {
+    console.error('error fetching pricelist items:', err);
+    res.status(500).json({ success: false, message: 'Error fetching pricelist items' });
+  }
 })
 
 router.put('/:id', async (req, res) => {

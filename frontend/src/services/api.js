@@ -3,6 +3,13 @@ import axios from 'axios';
 const guessApiBase = () => {
   const envUrl = import.meta.env.VITE_API_URL;
   if (envUrl) return envUrl;
+
+  // Production: use Render backend URL
+  if (import.meta.env.PROD) {
+    return 'https://sowbackend.onrender.com/api';
+  }
+
+  // Development: use localhost
   const { protocol, hostname } = window.location;
   const host = /\d+\.\d+\.\d+\.\d+/.test(hostname) ? hostname : 'localhost';
   return `${protocol}//${host}:8001/api`;
@@ -18,7 +25,7 @@ const api = axios.create({
 });
 
 api.interceptors.response.use(
-  // (response) => response,
+  // (response) => response,d
   (response) => {
     const payload = response?.data;
     const normalized = (payload && typeof payload === 'object' && 'data' in payload)
